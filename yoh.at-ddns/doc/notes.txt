@@ -1,0 +1,4 @@
+------------------------------
+    dig somedomain.com soa
+    dig @ns.SOA.com somedomain.com axfr
+------------------------------

@@ -1,0 +1,3 @@
+
+primary jobstreet.com.sg. C:\@Codingore\@yoh.at\yoh.at\java\yoh.at-ddns\dat\jobstreet.com.sg.txt
+primary azurewebsites.net. C:\@Codingore\@yoh.at\yoh.at\java\yoh.at-ddns\dat\azurewebsites.net.txt

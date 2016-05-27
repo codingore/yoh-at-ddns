@@ -1,0 +1,23 @@
+1. dnsjava - Pure Java DNS implementation
+
+https://github.com/ieugen/dnsjava
+
+2. Build your own DynDNS
+
+http://arkanis.de/weblog/2015-11-27-build-your-own-dyndns
+
+3. #Build your own dynamic DNS service with GO!
+
+http://mkaczanowski.com/golang-build-dynamic-dns-service-go/
+
+4. HOW-TO: be your own DDNS provider
+
+http://andrwe.org/linux/own-ddns
+
+5. DNS Records Explained with Examples
+
+http://www.debianhelp.co.uk/dnsrecords.htm
+
+6. DNS Records: an Introduction
+
+https://www.linode.com/docs/networking/dns/dns-records-an-introduction
