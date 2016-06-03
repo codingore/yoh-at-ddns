@@ -30,6 +30,7 @@ public class yoWeb {
 		public String dataFile = "";
 		public List<String> zoneNames = new ArrayList<String>();
 		public List<String> zoneFiles = new ArrayList<String>();
+		public List<Boolean> zoneDeleted = new ArrayList<Boolean>();
 		
 	}
 	

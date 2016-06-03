@@ -105,7 +105,7 @@ public class yoNamed {
 							yoNamed.instance().sync(sd.dataFile);
 						} else {
 							for (int i = 0; i < sd.zoneNames.size(); i++) {
-								yoNamed.instance().syncZone(sd.zoneNames.get(i), sd.zoneFiles.get(i));
+								yoNamed.instance().syncZone(sd.zoneNames.get(i), sd.zoneFiles.get(i), sd.zoneDeleted.get(i));
 							}
 							flushDNS();
 						}
@@ -132,9 +132,13 @@ public class yoNamed {
 		this.dataFile = newDataFile;
 	}
 	
-	public void syncZone(String zoneName, String zoneFile) {
+	public void syncZone(String zoneName, String zoneFile, boolean zoneDeleted) {
 		try {
-			addPrimaryZone(zoneName, zoneFile);
+			if (zoneDeleted) {
+				deletePrimaryZone(zoneName, zoneFile);
+			} else {
+				addPrimaryZone(zoneName, zoneFile);
+			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -338,6 +342,16 @@ public class yoNamed {
 		znames.put(newzone.getOrigin(), newzone);
 	}
 
+	public void deletePrimaryZone(String zname, String zonefile) throws IOException {
+		Name origin = null;
+		if (zname != null)
+			origin = Name.fromString(zname, Name.root);
+		Zone newzone = new Zone(origin, zonefile);
+		if (znames.containsKey(newzone.getOrigin())) {
+			znames.remove(newzone.getOrigin());
+		}
+	}
+	
 	public void addSecondaryZoneNew(String zone, String remote) throws IOException, ZoneTransferException
 	{
 		Name zname = Name.fromString(zone, Name.root);
