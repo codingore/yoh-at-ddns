@@ -130,6 +130,7 @@ public class yoNamed {
 	
 	public void sync(String newDataFile) {
 		this.dataFile = newDataFile;
+		sync();
 	}
 	
 	public void syncZone(String zoneName, String zoneFile, boolean zoneDeleted) {
