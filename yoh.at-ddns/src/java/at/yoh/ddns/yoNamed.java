@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.StringTokenizer;
 
 import org.xbill.DNS.Address;
@@ -773,11 +774,33 @@ public class yoNamed {
 		}
 	}
 
+	private boolean isHalt() {
+		if (getStopped()) {
+			return true;
+		}
+		try {
+			Properties prop = new Properties();
+			FileInputStream fis = new FileInputStream(yoNamed.CFG_FILE);
+			prop.load(fis);
+			fis.close();
+			
+			String val = prop.getProperty("halt");
+			if ("true".equalsIgnoreCase(val)) {
+				setStopped(true);
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return false;
+	}
+	
 	public void
 	serveTCP(InetAddress addr, int port) {
 		try {
 			ServerSocket sock = new ServerSocket(port, 128, addr);
-			while (true) {
+			while (!isHalt()) {
 				final Socket s = sock.accept();
 				Thread t;
 				t = new Thread(new Runnable() {
@@ -799,7 +822,7 @@ public class yoNamed {
 			byte [] in = new byte[udpLength];
 			DatagramPacket indp = new DatagramPacket(in, in.length);
 			DatagramPacket outdp = null;
-			while (true) {
+			while (!isHalt()) {
 				indp.setLength(in.length);
 				try {
 					sock.receive(indp);
