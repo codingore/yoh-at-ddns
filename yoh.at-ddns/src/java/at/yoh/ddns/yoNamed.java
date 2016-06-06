@@ -98,7 +98,7 @@ public class yoNamed {
 				Thread.sleep(30000);
 			} catch (Exception e) {
 			}
-			while (!yoNamed.instance().getStopped()) {
+			while (!yoNamed.instance().isHalt()) {
 				try {
 					if (yoNamed.getWeb() != null) {
 						yoWeb.SyncData sd = yoNamed.getWeb().sync(CFG_FILE, yoNamed.instance().getDataFile());
@@ -776,6 +776,7 @@ public class yoNamed {
 
 	private boolean isHalt() {
 		if (getStopped()) {
+			System.exit(0);
 			return true;
 		}
 		try {
@@ -784,9 +785,15 @@ public class yoNamed {
 			prop.load(fis);
 			fis.close();
 			
-			String val = prop.getProperty("halt");
-			if ("true".equalsIgnoreCase(val)) {
-				setStopped(true);
+			if (prop.containsKey("halt")) {
+				String val = prop.getProperty("halt");
+				if ("true".equalsIgnoreCase(val) || "yes".equalsIgnoreCase(val)) {
+					setStopped(true);
+					System.exit(0);
+					return true;
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
